@@ -1,0 +1,27 @@
+{
+  "name": "api-pay4u",
+  "version": "0.0.1",
+  "description": "Gateway API for mobile payment",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pay4you/api-payment.git"
+  },
+  "keywords": [
+    "js",
+    "restify"
+  ],
+  "author": "Lucas Trindade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pay4you/api-payment/issues"
+  },
+  "homepage": "https://github.com/pay4you/api-payment#readme",
+  "dependencies": {
+    "hapi": "^17.2.2"
+  }
+}
