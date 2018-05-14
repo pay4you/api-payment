@@ -1,14 +1,12 @@
 import express from 'express';
-import users from '../controllers/users'
+import user from './user'
 
-const app = express.Router();
+const router = express.Router();
+const app = express()
 
-app.get('/users/:id', users.getById)
-app.get('/users', users.get)
-app.post('/users', users.post)
-app.put('/users/:id', users.put)
-app.delete('/users/:id', users.remove);
+router.use('/users', user)
 
-export default app;
+
+export default router;
 
 console.log('Executing Server: routes.js ...');

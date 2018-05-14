@@ -1,5 +1,5 @@
 import app from '../src/app';
-import db from'../db/models';
+import db from'../src/models';
 // clearscreen();
 
 app.listen(3000, () => {
