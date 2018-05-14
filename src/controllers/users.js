@@ -1,3 +1,7 @@
+import db from '../models'
+
+const User = db.sequelize.import(__dirname + "./../models/user")
+
 function get(req, res, next) {
     res.status(200).send(`Requisição recebida com sucesso!`);
 }
@@ -8,7 +12,13 @@ function getById(req, res, next) {
 }
 
 function post(req, res, next) {
-    res.status(201).send(`Requisição recebida com sucesso!`);
+    User.create({ name: 'Lucas Trindade', email: 'lucasktrindade@gmail.com', password: '123456', cpf: 1544, address: 'endereço', phone: 2198 })
+        .then(user => {
+            return res.status(201).json(user);
+        })
+        .catch(e => {
+            res.status(500).json(e)
+        })
 }
 
 function remove(req, res, next) {
