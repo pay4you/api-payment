@@ -3,8 +3,8 @@ const fs = require('fs');
 module.exports = {
     development: {
         username: "root",
-        password: "PASSWORD",
-        database: "database_development",
+        password: "123456",
+        database: "pay4you",
         host: "127.0.0.1",
         dialect: "mysql",
         port: 3306
@@ -12,7 +12,7 @@ module.exports = {
     test: {
         username: "root",
         password: null,
-        database: "database_test",
+        database: "pay4you",
         host: "127.0.0.1",
         dialect: "mysql",
         port: 3306
@@ -20,7 +20,7 @@ module.exports = {
     production: {
         username: "root",
         password: null,
-        database: "database_production",
+        database: "pay4you",
         host: "127.0.0.1",
         dialect: "mysql",
         port: 3306
