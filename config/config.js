@@ -7,7 +7,9 @@ module.exports = {
         database: "pay4you",
         host: "127.0.0.1",
         dialect: "mysql",
-        port: 3306
+        port: 3306,
+        secret: "MyS3cr3tK3Y",
+        jwtSession: {session: false}
     },
     test: {
         username: "root",
@@ -15,7 +17,9 @@ module.exports = {
         database: "pay4you",
         host: "127.0.0.1",
         dialect: "mysql",
-        port: 3306
+        port: 3306,
+        secret: "MyS3cr3tK3Y",
+        jwtSession: {session: false}
     },
     production: {
         username: "root",
@@ -23,6 +27,8 @@ module.exports = {
         database: "pay4you",
         host: "127.0.0.1",
         dialect: "mysql",
-        port: 3306
+        port: 3306,
+        secret: "MyS3cr3tK3Y",
+        jwtSession: {session: false}
     }
 };

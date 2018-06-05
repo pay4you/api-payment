@@ -1,6 +1,6 @@
 import app from '../src/app';
 import db from'../src/models';
-// clearscreen();
+import config from '../config/config';
 
 app.listen(3000, () => {
   db.sequelize.sync();

@@ -1,15 +1,58 @@
 'use strict';
+import bcrypt from 'bcryptjs'
+
 export default (sequelize, DataTypes) => {
   var User = sequelize.define('user', {
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    cpf: DataTypes.STRING,
-    address: DataTypes.STRING,
-    phone: DataTypes.STRING
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    email: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      unique: true,
+      validate: {
+        notEmpty: true,
+        isEmail: true
+      }
+    },
+    password: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      },
+      set(val) {
+        this.setDataValue('password', bcrypt.hashSync(val, 8));
+      }
+  
+    },
+    cpf: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      unique: true,
+      validate: {
+        notEmpty: true
+      }
+    },
+    address: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    phone: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    }
   }, {});
-  User.associate = function(models) {
-    // associations can be defined here
-  };
+
   return User;
 };
