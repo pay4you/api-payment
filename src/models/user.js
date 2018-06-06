@@ -52,7 +52,9 @@ export default (sequelize, DataTypes) => {
         notEmpty: true
       }
     }
-  }, {});
+  }, {
+    paranoid: true
+  });
 
   return User;
 };
