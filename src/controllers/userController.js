@@ -8,7 +8,10 @@ const env = process.env.NODE_ENV || 'development';
 const User = db.sequelize.import(__dirname + "./../models/user")
 
 function get(req, res, next) {
-    User.findAll({ limit: 10 })
+    User.findAll({ 
+        limit: 10,
+        attributes: ['id','name', 'email', 'cpf', 'address', 'phone'] 
+    })
         .then(users => {
             return res.status(200).json(users);
         })
@@ -18,8 +21,17 @@ function get(req, res, next) {
 }
 
 function getById(req, res, next) {
-    let id = req.params.id;
-    res.status(200).send(`Requisição recebida com sucesso! ${id}`);
+    const user = req.decoded;
+    req.$models.user.findOne({
+        where: {id: user.id},
+        attributes: ['id','name', 'email', 'cpf', 'address', 'phone']
+      })
+        .then(user => {
+            res.status(200).json({success: true, user});
+        })
+        .catch(error => {
+            res.status(500).json({success: false});
+        })
 }
 
 function post(req, res, next) {
@@ -45,8 +57,14 @@ function remove(req, res, next) {
 }
 
 function put(req, res, next) {
-    let id = req.params.id;
-    res.status(201).send(`Requisição recebida com sucesso! ${id}`);
+    const user = req.decoded;
+    req.$models.user.update(req.body, {where: { id: user.id } })  
+        .then(userUpdated => {            
+            res.status(200).json({success: true});
+        })
+        .catch(error => {
+            res.status(500).json({success: false});
+        })
 }
 
 function authenticate(req, res, next) {
@@ -63,7 +81,7 @@ function authenticate(req, res, next) {
                     email: user.email
                 }            
                 const token = jwt.sign(payload, config[env].secret, {
-                    expiresIn: 1440
+                    expiresIn: 24*24*60
                 });
                 return res.status(200).json({ 
                     success: true,
