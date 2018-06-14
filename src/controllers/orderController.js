@@ -5,7 +5,7 @@ function get(req, res, next) {
     const pageNumber = req.query.pageNumber || 1
     const pageSize = req.query.pageSize || 10
     
-    req.$models.establishment
+    req.$models.order
     .findAndCountAll({
         limit: parseInt(pageSize),
         offset: parseInt(pageNumber) - 1
@@ -27,13 +27,14 @@ function get(req, res, next) {
 
 function getById(req, res, next) {
     const id = req.params.id;
-    req.$models.establishment
+    req.$models.order
     .findOne({
-        where: {id: id},
-        attributes: ['id','social_name', 'phone', 'address', 'cnpj']
+        where: {id: id}
     })
-    .then(establishment => {
-        res.status(200).json({success: true, establishment});
+    .then(order => {
+        order.getProducts()
+        .then()
+        res.status(200).json({success: true, order});
     })
     .catch(error => {
         res.status(500).json({success: false});
@@ -42,19 +43,29 @@ function getById(req, res, next) {
 
 
 function post(req, res, next) {
-    req.$models.establishment
-    .create({
-        social_name: req.body.socialName, 
-        cnpj: req.body.cnpj, 
-        address: req.body.address, 
-        phone: req.body.phone
-    })
-    .then(establishment => {
-        return res.status(201).json(establishment);
-    })
-    .catch(error => {
-        return res.status(500).json(error)
-    })  
+    const products = req.body.products
+    req.$models.order
+    .build({status: 1, userId: req.decoded.id})
+    .save()
+        .then(order => {
+            products.forEach(prodId => {
+                req.$models.product
+                .findOne({
+                    where: {id: prodId},
+                    attributes: ['id']
+                })
+                .then(product => {
+                    order.addProduct(product)
+                    return res.status(200).json({success: true});          
+                })
+                .catch(error => {
+                    return res.status(500).json(error)
+                })
+            })
+        })
+        .catch(error => {
+            return res.status(500).json(error)
+        }) 
 }
 
 

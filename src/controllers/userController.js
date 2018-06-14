@@ -41,7 +41,8 @@ function post(req, res, next) {
             password: req.body.password, 
             cpf: req.body.cpf, 
             address: req.body.address, 
-            phone: req.body.phone 
+            phone: req.body.phone,
+            role: req.body.role 
         })
         .then(user => {
             return res.status(201).json(user);

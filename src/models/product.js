@@ -7,5 +7,10 @@ export default (sequelize, DataTypes) => {
     quantity: DataTypes.INTEGER
   }, {});
   
+  Product.associate = function(models) {
+    Product.belongsTo(models.establishment)
+    Product.belongsToMany(models.order, {through: 'products_order'});
+  };
+
   return Product;
 };

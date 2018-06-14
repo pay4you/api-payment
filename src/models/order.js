@@ -3,11 +3,14 @@ import Sequelize from 'sequelize'
 
 export default (sequelize, DataTypes) => {
   var Order = sequelize.define('order', {
-    uuid: {
-       type: Sequelize.UUID,
-       defaultValue: Sequelize.UUIDV1,
-       primaryKey: true
-    }
+    status: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: true
+      },
+      defaultValue: 1
+    },
   }, {});
 
   Order.associate = function(models) {

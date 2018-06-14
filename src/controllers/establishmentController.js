@@ -50,10 +50,10 @@ function getProducts(req, res, next) {
         attributes: ['id']
     })
     .then(establishment => {
-        establishment.getProducts({
-            limit: parseInt(pageSize)
-        })
+        establishment.getProducts()
         .then(products => {
+            console.log(products);
+            
             res.status(200).json({success: true, products});
         })
     })
@@ -86,12 +86,13 @@ function postProducts(req, res, next) {
         attributes: ['id']
     })
     .then(establishment => {
-        req.$models.product.create(req.body).then(prod => {
-            establishment.setProducts(prod)
-            .then(product => {
-                res.status(200).json({success: true, product});
-            })
-        })        
+        req.$models.product
+        .build(req.body)
+        .save()
+        .then(product => {
+            product.setEstablishment(establishment)
+            res.status(200).json({success: true, product});
+        })
     })
     .catch(error => {
         res.status(500).json({success: false});

@@ -51,7 +51,15 @@ export default (sequelize, DataTypes) => {
       validate: {
         notEmpty: true
       }
-    }
+    },
+    role: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: true
+      },
+      defaultValue: 3
+    },
   }, {
     paranoid: true
   });
