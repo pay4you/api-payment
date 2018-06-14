@@ -33,8 +33,9 @@ function getById(req, res, next) {
     })
     .then(order => {
         order.getProducts()
-        .then()
-        res.status(200).json({success: true, order});
+        .then(products => {
+            res.status(200).json({success: true, order, products});
+        })
     })
     .catch(error => {
         res.status(500).json({success: false});
