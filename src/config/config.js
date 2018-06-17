@@ -9,7 +9,8 @@ module.exports = {
         dialect: "mysql",
         port: 3306,
         secret: "MyS3cr3tK3Y",
-        jwtSession: {session: false}
+        jwtSession: {session: false},
+        force: true
     },
     test: {
         username: "root",
@@ -19,7 +20,8 @@ module.exports = {
         dialect: "mysql",
         port: 3306,
         secret: "MyS3cr3tK3Y",
-        jwtSession: {session: false}
+        jwtSession: {session: false},
+        force: true
     },
     production: {
         username: "lucasktrindade",
@@ -29,6 +31,7 @@ module.exports = {
         dialect: "mysql",
         port: 3306,
         secret: "MyS3cr3tK3Y",
-        jwtSession: {session: false}
+        jwtSession: {session: false},
+        force: true
     }
 };
