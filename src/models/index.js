@@ -10,7 +10,7 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 let db = {};
 
-const sequelize = new Sequelize(`${config[env].dialect}://${config[env].username}:${config[env].password}@${config[env].host}:${config[env].port}/${config[env].database}`);
+const sequelize = new Sequelize(`${config[env].dialect}://${config[env].username}:${config[env].password}@${config[env].host}:${config[env].port}/${config[env].database}`, {force:true});
 
 fs
   .readdirSync(__dirname)

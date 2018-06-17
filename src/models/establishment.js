@@ -36,7 +36,8 @@ export default (sequelize, DataTypes) => {
     paranoid: true
   });
   Establishment.associate = function(models) {
-      Establishment.hasMany(models.product, {as: 'Products'})
+    Establishment.hasMany(models.product, {as: 'Products'})
+    Establishment.belongsToMany(models.user, { through: 'establishment_user' });
   }
 
   return Establishment;
