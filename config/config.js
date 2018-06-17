@@ -2,7 +2,7 @@ const fs = require('fs');
 
 module.exports = {
     development: {
-        username: "root",
+        username: "lucasktrindade",
         password: "PASSWORD",
         database: "pay4you",
         host: "127.0.0.1",
