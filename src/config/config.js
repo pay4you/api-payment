@@ -2,10 +2,10 @@ const fs = require('fs');
 
 module.exports = {
     development: {
-        username: "lucasktrindade",
+        username: "root",
         password: "PASSWORD",
         database: "pay4you",
-        host: "mysql427.umbler.com",
+        host: "127.0.0.1",
         dialect: "mysql",
         port: 3306,
         secret: "MyS3cr3tK3Y",
@@ -22,10 +22,10 @@ module.exports = {
         jwtSession: {session: false}
     },
     production: {
-        username: "root",
-        password: null,
+        username: "lucasktrindade",
+        password: "PASSWORD",
         database: "pay4you",
-        host: "127.0.0.1",
+        host: "mysql427.umbler.com",
         dialect: "mysql",
         port: 3306,
         secret: "MyS3cr3tK3Y",
