@@ -5,7 +5,7 @@ module.exports = {
         username: "lucasktrindade",
         password: "PASSWORD",
         database: "pay4you",
-        host: "127.0.0.1",
+        host: "mysql427.umbler.com",
         dialect: "mysql",
         port: 3306,
         secret: "MyS3cr3tK3Y",
