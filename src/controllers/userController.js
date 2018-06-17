@@ -1,7 +1,7 @@
 import db from '../models'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
-import config from '../../config/config'
+import config from '../config/config'
 
 const env = process.env.NODE_ENV || 'development';
 

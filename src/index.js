@@ -1,6 +1,6 @@
-import app from '../src/app';
-import db from'../src/models';
-import config from '../config/config';
+import app from './app';
+import db from'./models';
+import config from './config/config'
 
 app.listen(3000, () => {
   db.sequelize.sync();
