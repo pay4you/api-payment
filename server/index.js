@@ -1,10 +1,11 @@
-var express = require('express');
-var app = express();
+import app from '../src/app';
+import db from'../src/models';
+import config from '../config/config';
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
+app.listen(3000, () => {
+  db.sequelize.sync();
+  console.log('Running on port 3000...');
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
+console.log('Executing Server: index.js ...');
+console.log('');
