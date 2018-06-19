@@ -79,7 +79,8 @@ function authenticate(req, res, next) {
             if(bcrypt.compareSync(req.body.password, user.password)) {
                 const payload = {
                     id: user.id,
-                    email: user.email
+                    email: user.email,
+                    role: user.role
                 }            
                 const token = jwt.sign(payload, config[env].secret, {
                     expiresIn: 24*24*60
