@@ -1,6 +1,7 @@
 import express from 'express';
 import routes from './routes';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import models from './models'
 import jwt from 'jsonwebtoken'
 import config from './config/config'
@@ -14,6 +15,8 @@ const app = express();
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use((req, res, next) => {
