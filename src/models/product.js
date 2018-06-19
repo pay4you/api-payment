@@ -10,7 +10,7 @@ export default (sequelize, DataTypes) => {
   
   Product.associate = function(models) {
     Product.belongsTo(models.establishment)
-    Product.belongsToMany(models.order, {through: 'products_order'});
+    Product.belongsToMany(models.order, {through: 'products_orders'});
   };
 
   return Product;

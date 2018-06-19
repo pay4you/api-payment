@@ -110,11 +110,27 @@ function put(req, res, next) {
         })
 }
 
+function getOrders(req, res, next) {
+    const id = req.params.id;
+    const pageNumber = req.query.pageNumber || 1
+    const pageSize = req.query.pageSize || 10
+    req.$models.order
+    .findAll({
+        where: {establishmentId: id}
+    })
+    .then(orders => {
+        return res.status(200).json({success: true, orders});
+    })
+    .catch(error => {
+        return res.status(500).json({success: false});
+    }) 
+}
 
 export default {
     get,
     getById,
     getProducts,
+    getOrders,
     post,
     postProducts,
     put

@@ -45,8 +45,10 @@ function getById(req, res, next) {
 
 function post(req, res, next) {
     const products = req.body.products
+    const establishmentId = req.body.establishment
+    const status = req.body.status
     req.$models.order
-    .build({status: 1, userId: req.decoded.id})
+    .build({status: status, userId: req.decoded.id, establishmentId: establishmentId})
     .save()
         .then(order => {
             products.forEach(prodId => {
@@ -57,12 +59,13 @@ function post(req, res, next) {
                 })
                 .then(product => {
                     order.addProduct(product)
-                    return res.status(200).json({success: true});          
+                    return res.status(201).json({success:true});          
                 })
                 .catch(error => {
                     return res.status(500).json(error)
                 })
             })
+            return order
         })
         .catch(error => {
             return res.status(500).json(error)

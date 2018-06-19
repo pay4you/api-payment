@@ -14,8 +14,9 @@ export default (sequelize, DataTypes) => {
   }, {});
 
   Order.associate = function(models) {
-    Order.belongsToMany(models.product, {through: 'products_order'});
+    Order.belongsToMany(models.product, {through: 'products_orders'});
     Order.belongsTo(models.user)
+    Order.belongsTo(models.establishment)
   };
   return Order;
 };

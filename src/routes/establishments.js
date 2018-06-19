@@ -10,7 +10,6 @@ router.get('/:id',isAuthenticated, establisments.getById)
 router.put('/:id', isAuthenticated, establisments.put)
 router.get('/:id/products', isAuthenticated, establisments.getProducts)
 router.post('/:id/products', isAuthenticated, establisments.postProducts)
-
-
+router.get('/:id/orders', isAuthenticated, establisments.getOrders)
 
 export default router

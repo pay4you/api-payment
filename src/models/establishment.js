@@ -44,7 +44,7 @@ export default (sequelize, DataTypes) => {
   });
   Establishment.associate = function(models) {
     Establishment.hasMany(models.product, {as: 'Products'})
-    Establishment.belongsToMany(models.user, { through: 'establishment_user' });
+    Establishment.belongsToMany(models.user, { through: 'establishments_users' });
   }
 
   return Establishment;
