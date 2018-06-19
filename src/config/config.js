@@ -32,6 +32,6 @@ module.exports = {
         port: 3306,
         secret: "MyS3cr3tK3Y",
         jwtSession: {session: false},
-        force: false
+        force: true
     }
 };

@@ -10,6 +10,13 @@ export default (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
+    image: {
+      allowNull: true,
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: false
+      }
+    },
     cnpj: {
       allowNull: false,
       unique: true,
