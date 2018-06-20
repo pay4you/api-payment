@@ -30,9 +30,9 @@ function getById(req, res, next) {
         .then(user => {
             let response = { 
                 success: true,
-                isRoot: isRoot(user.role) 
+                isRoot: isRoot(userToken.role) 
             }
-            if(!isRoot(user.role)) {
+            if(!isRoot(userToken.role)) {
                 user.getEstablishments()
                 .then(establishments => {
                     response.establishments = establishments
