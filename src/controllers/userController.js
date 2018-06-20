@@ -22,15 +22,14 @@ function get(req, res, next) {
 }
 
 function getById(req, res, next) {
-    const user = req.decoded;
+    const userToken = req.decoded;
     req.$models.user.findOne({
-        where: {id: user.id},
-        attributes: ['id','name', 'email', 'cpf', 'address', 'phone', 'role']
+        where: {id: userToken.id},
+        attributes: ['id','name', 'email', 'cpf', 'address', 'phone']
       })
         .then(user => {
             let response = { 
                 success: true,
-                token: token,
                 isRoot: isRoot(user.role) 
             }
             if(!isRoot(user.role)) {
