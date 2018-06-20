@@ -2,6 +2,7 @@ import db from '../models'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import config from '../config/config'
+import establishment from '../models/establishment';
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -24,10 +25,23 @@ function getById(req, res, next) {
     const user = req.decoded;
     req.$models.user.findOne({
         where: {id: user.id},
-        attributes: ['id','name', 'email', 'cpf', 'address', 'phone']
+        attributes: ['id','name', 'email', 'cpf', 'address', 'phone', 'role']
       })
         .then(user => {
-            res.status(200).json({success: true, user});
+            let response = { 
+                success: true,
+                token: token,
+                isRoot: isRoot(user.role) 
+            }
+            if(!isRoot(user.role)) {
+                user.getEstablishments()
+                .then(establishments => {
+                    response.establishments = establishments
+                    return res.status(200).json(response);
+                })
+            } else {
+                return res.status(200).json(response);
+            }
         })
         .catch(error => {
             res.status(500).json({success: false});
@@ -85,11 +99,20 @@ function authenticate(req, res, next) {
                 const token = jwt.sign(payload, config[env].secret, {
                     expiresIn: 24*24*60
                 });
-                return res.status(200).json({ 
+                let response = { 
                     success: true,
-                    message: 'Enjoy your token!',
-                    token: token 
-                });
+                    token: token,
+                    isRoot: isRoot(user.role) 
+                }
+                if(!isRoot(user.role)) {
+                    user.getEstablishments()
+                    .then(establishments => {
+                        response.establishments = establishments
+                        return res.status(200).json(response);
+                    })
+                } else {
+                    return res.status(200).json(response);
+                }
             } else {
                 res.status(400).json({ success: false, message: 'Authentication failed.' });
 
@@ -98,6 +121,12 @@ function authenticate(req, res, next) {
         .catch(err => {
             res.status(500).json({success: false})
         })  
+}
+
+function isRoot (role) {
+    if(role === 0)
+        return true
+    return false
 }
 export default {
     authenticate,

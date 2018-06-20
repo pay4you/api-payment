@@ -98,7 +98,33 @@ function postProducts(req, res, next) {
         res.status(500).json({success: false});
     }) 
 }
-
+function postUser (req, res, next) {
+    const id = req.params.id;
+    const user = req.params.user;
+    if(req.decoded.role === 0) {
+        req.$models.establishment
+        .findOne({
+            where: {id: id},
+            attributes: ['id']
+        })
+        .then(establishment => {
+            req.$models.user
+            .findOne({
+                where: {id: user},
+                attributes: ['id']
+            })
+            .then(userAll => {
+                establishment.addUser(userAll)
+                res.status(200).json({success: true, userAll, establishment});
+            })
+        })
+        .catch(error => {
+            res.status(500).json({success: false});
+        })
+    } else {
+        res.status(403).json({success: false});
+    }
+}
 function put(req, res, next) {
     const id = req.params.id
     req.$models.establishment.update(req.body, {where: { id: id } })  
@@ -133,5 +159,6 @@ export default {
     getOrders,
     post,
     postProducts,
+    postUser,
     put
 }

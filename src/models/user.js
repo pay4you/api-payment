@@ -64,5 +64,9 @@ export default (sequelize, DataTypes) => {
     paranoid: true
   });
 
+  User.associate = function(models) {
+    User.belongsToMany(models.establishment, { through: 'establishments_users' });
+  }
+
   return User;
 };
