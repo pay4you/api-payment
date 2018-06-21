@@ -2,11 +2,13 @@ function get(req, res, next) {
     
     const pageNumber = req.query.pageNumber || 1
     const pageSize = req.query.pageSize || 10
+    const status = req.query.status || 1
     
     req.$models.order
     .findAndCountAll({
         limit: parseInt(pageSize),
-        offset: parseInt(pageNumber) - 1
+        offset: parseInt(pageNumber) - 1,
+        where: {status: status}
     })
     .then(({rows, count}) => {
         return res.status(200).json({
