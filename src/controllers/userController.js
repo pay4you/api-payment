@@ -30,6 +30,7 @@ function getById(req, res, next) {
         .then(user => {
             let response = { 
                 success: true,
+                user,
                 isRoot: isRoot(userToken.role) 
             }
             if(!isRoot(userToken.role)) {
