@@ -140,9 +140,11 @@ function getOrders(req, res, next) {
     const id = req.params.id;
     const pageNumber = req.query.pageNumber || 1
     const pageSize = req.query.pageSize || 10
+    const status = req.query.status || 1
+
     req.$models.order
     .findAll({
-        where: {establishmentId: id}
+        where: {establishmentId: id, status: status}
     })
     .then(orders => {
         return res.status(200).json({success: true, orders});
