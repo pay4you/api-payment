@@ -1,5 +1,3 @@
-import establishment from "../models/establishment";
-
 function get(req, res, next) {
     
     const pageNumber = req.query.pageNumber || 1
@@ -75,7 +73,14 @@ function post(req, res, next) {
 
 function put(req, res, next) {
     const id = req.params.id
-    
+    req.$models.order
+        .update(req.body, {where: { id: id } })  
+        .then(order => {            
+            res.status(200).json({success: true, order});
+        })
+        .catch(error => {
+            res.status(500).json({success: false});
+        })
 }
 
 
